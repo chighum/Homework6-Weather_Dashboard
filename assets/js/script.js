@@ -24,9 +24,9 @@ function renderCities() {
   cityList.text("");
   for (var i = 0; i < storedCities.length; i++) {
     var cityListEntry = $("<li>");
-    var cityListItem = $("<button>");
+    var cityListItem = $("<button class='uppercase redo-city-btn'>");
     cityListItem.text(storedCities[i]);
-    cityListItem.attr("data-index", i);
+    cityListEntry.attr("data-index", i);
     var deleteItemButton = $("<button class='delete-item-btn'>x</button>");
     cityListEntry.append(cityListItem);
     cityListEntry.append(deleteItemButton);
@@ -49,6 +49,17 @@ function deleteItem(event) {
 
 cityList.on("click", deleteItem);
 
+// function redoCity(event) {
+//   event.preventDefault();
+//   var btnClicked = event.target;
+//   if (btnClicked.matches(".redo-city-btn")) {
+//     var newCity = btnClicked.val();
+//     console.log(newCity);
+//   }
+// }
+
+// cityList.on("click", redoCity);
+
 renderCities();
 
 // makes two API calls to openweather
@@ -68,8 +79,9 @@ function getWeather(cityName) {
       var midDayForecasts = fiveDayForecast.list.filter(function (inputs) {
         return inputs.dt_txt.includes("12:00");
       });
-      console.log(midDayForecasts);
+      //   console.log(midDayForecasts);
       for (x = 0; x < 5; x++) {
+        var day = $("<div class='col-2'>");
         var date = $("<h5>");
         var icon = $("<img>");
         var temp = $("<p>");
@@ -87,13 +99,15 @@ function getWeather(cityName) {
         humidity.text("Humidity: " + midDayForecasts[x].main.humidity + "%");
         wind.text("Wind Speed: " + midDayForecasts[x].wind.speed + " knots");
 
-        $("#five-day").append(date);
-        $("#five-day").append(icon);
-        $("#five-day").append(temp);
-        $("#five-day").append(humidity);
-        $("#five-day").append(wind);
+        day.append(date);
+        day.append(icon);
+        day.append(temp);
+        day.append(humidity);
+        day.append(wind);
+
+        $("#five-day").append(day);
       }
-      console.log(fiveDayForecast);
+      //   console.log(fiveDayForecast);
       var cityLat = fiveDayForecast.city.coord.lat;
       var cityLong = fiveDayForecast.city.coord.lon;
       var todayURL =
@@ -109,7 +123,7 @@ function getWeather(cityName) {
       return todayResponse.json();
     })
     .then(function (todayWeather) {
-      console.log(todayWeather);
+      //   console.log(todayWeather);
       var city = $("<h3>");
       var todayDate = $("<h3>");
       var todayIcon = $("<img>");
