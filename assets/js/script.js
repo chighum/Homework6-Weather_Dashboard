@@ -49,16 +49,16 @@ function deleteItem(event) {
 
 cityList.on("click", deleteItem);
 
-// function redoCity(event) {
-//   event.preventDefault();
-//   var btnClicked = event.target;
-//   if (btnClicked.matches(".redo-city-btn")) {
-//     var newCity = btnClicked.val();
-//     console.log(newCity);
-//   }
-// }
+function redoCity(event) {
+  event.preventDefault();
+  var btnClicked = event.target;
+  if (btnClicked.matches(".redo-city-btn")) {
+    var newCity = btnClicked.innerHTML;
+    getWeather(newCity);
+  }
+}
 
-// cityList.on("click", redoCity);
+cityList.on("click", redoCity);
 
 renderCities();
 
