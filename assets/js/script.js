@@ -68,8 +68,30 @@ function getWeather(cityName) {
       var midDayForecasts = fiveDayForecast.list.filter(function (inputs) {
         return inputs.dt_txt.includes("12:00");
       });
+      console.log(midDayForecasts);
       for (x = 0; x < 5; x++) {
-        var date;
+        var date = $("<h5>");
+        var icon = $("<img>");
+        var temp = $("<p>");
+        var humidity = $("<p>");
+        var wind = $("<p>");
+
+        date.text(midDayForecasts[x].dt_txt.split(" ")[0]);
+        icon.attr(
+          "src",
+          "https://openweathermap.org/img/wn/" +
+            midDayForecasts[x].weather[0].icon +
+            "@2x.png"
+        );
+        temp.text("Temperature: " + midDayForecasts[x].main.temp + "°F");
+        humidity.text("Humidity: " + midDayForecasts[x].main.humidity + "%");
+        wind.text("Wind Speed: " + midDayForecasts[x].wind.speed + " knots");
+
+        $("#five-day").append(date);
+        $("#five-day").append(icon);
+        $("#five-day").append(temp);
+        $("#five-day").append(humidity);
+        $("#five-day").append(wind);
       }
       console.log(fiveDayForecast);
       var cityLat = fiveDayForecast.city.coord.lat;
@@ -106,15 +128,17 @@ function getWeather(cityName) {
       );
       todayTemp.text("Temperature: " + todayWeather.current.temp + "°F");
       todayHumidity.text("Humidity: " + todayWeather.current.humidity + "%");
-      todayWind.text("Wind: " + todayWeather.current.wind_speed + "knots");
+      todayWind.text(
+        "Wind Speed: " + todayWeather.current.wind_speed + " knots"
+      );
       todayUV.text("UV Index: " + todayWeather.current.uvi);
 
-      $("#weather").append(city);
-      $("#weather").append(todayDate);
-      $("#weather").append(todayIcon);
-      $("#weather").append(todayTemp);
-      $("#weather").append(todayHumidity);
-      $("#weather").append(todayWind);
-      $("#weather").append(todayUV);
+      $("#today").append(city);
+      $("#today").append(todayDate);
+      $("#today").append(todayIcon);
+      $("#today").append(todayTemp);
+      $("#today").append(todayHumidity);
+      $("#today").append(todayWind);
+      $("#today").append(todayUV);
     });
 }
