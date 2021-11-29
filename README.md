@@ -10,4 +10,4 @@ If you would like to be able to use the day planner for yourself, you can access
 
 You can also what the deployed website looks like live in action below:
 
-![User click through of interactive day planner.](./assets/images/)
+![User click through of interactive weather dashboard.](./assets/images/)
