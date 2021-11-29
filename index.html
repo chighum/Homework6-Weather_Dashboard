@@ -15,26 +15,28 @@
   </head>
   <body class="container">
     <h1 class="row justify-content-center my-5">Weather Dashboard</h1>
-    <section>
-      <!-- make this into a sidebar -->
+    <div class="row">
+      <section class="col-3">
+        <!-- make this into a sidebar -->
 
-      <form action="submit" id="city-form">
-        <input
-          type="text"
-          autofocus
-          id="city-input"
-          placeholder="Enter City Here"
-        />
-        <button id="city-button">Search</button>
-      </form>
-      <ul id="city-list" class="list-unstyled"></ul>
-    </section>
+        <form action="submit" id="city-form">
+          <input
+            type="text"
+            autofocus
+            id="city-input"
+            placeholder="Enter City Here"
+          />
+          <button id="city-button">Search</button>
+        </form>
+        <ul id="city-list" class="list-unstyled"></ul>
+      </section>
 
-    <section id="weather">
-      <!-- bulk section where weather is displayed -->
-      <section id="today"></section>
-      <section id="five-day"></section>
-    </section>
+      <section id="weather" class="col-9">
+        <!-- bulk section where weather is displayed -->
+        <section id="today" class="col-12"></section>
+        <section id="five-day" class="col-12"></section>
+      </section>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script
