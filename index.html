@@ -13,23 +13,34 @@
     <link rel="stylesheet" href="./assets/css/style.css" />
     <title>Weather Dashboard</title>
   </head>
-  <body>
-    <h1>Weather Dashboard</h1>
-    <form action="submit" id="city-form">
-      <input
-        type="text"
-        autofocus
-        id="city-input"
-        placeholder="Enter City Here"
-      />
-      <button id="city-button">Search</button>
-    </form>
-    <ul id="city-list" class="list-unstyled"></ul>
+  <body class="container">
+    <h1 class="row justify-content-center my-5">Weather Dashboard</h1>
+    <section>
+      <!-- make this into a sidebar -->
+
+      <form action="submit" id="city-form">
+        <input
+          type="text"
+          autofocus
+          id="city-input"
+          placeholder="Enter City Here"
+        />
+        <button id="city-button">Search</button>
+      </form>
+      <ul id="city-list" class="list-unstyled"></ul>
+    </section>
+
+    <section id="weather">
+      <!-- bulk section where weather is displayed -->
+    </section>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"
+    ></script>
     <script src="./assets/js/config.js"></script>
     <script src="./assets/js/script.js"></script>
-
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
