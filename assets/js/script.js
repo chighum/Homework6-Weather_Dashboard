@@ -79,8 +79,8 @@ function getWeather(cityName) {
       var midDayForecasts = fiveDayForecast.list.filter(function (inputs) {
         return inputs.dt_txt.includes("12:00");
       });
-      //   console.log(midDayForecasts);
-      for (x = 0; x < 5; x++) {
+      $("#five-day").empty();
+      for (x = 0; x < midDayForecasts.length; x++) {
         var day = $("<div class='col-2'>");
         var date = $("<h5>");
         var icon = $("<img>");
@@ -104,10 +104,9 @@ function getWeather(cityName) {
         day.append(temp);
         day.append(humidity);
         day.append(wind);
-
         $("#five-day").append(day);
       }
-      //   console.log(fiveDayForecast);
+
       var cityLat = fiveDayForecast.city.coord.lat;
       var cityLong = fiveDayForecast.city.coord.lon;
       var todayURL =
@@ -146,6 +145,8 @@ function getWeather(cityName) {
         "Wind Speed: " + todayWeather.current.wind_speed + " knots"
       );
       todayUV.text("UV Index: " + todayWeather.current.uvi);
+
+      $("#today").empty();
 
       $("#today").append(city);
       $("#today").append(todayDate);
