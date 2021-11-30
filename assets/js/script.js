@@ -92,7 +92,7 @@ function getWeather(cityName) {
       // console.log(midDayForecasts);
       $("#five-day").empty();
       for (x = 0; x < midDayForecasts.length; x++) {
-        var day = $("<div class='col-2'>");
+        var day = $("<div class='col card mx-3 my-3'>");
         var date = $("<h5>");
         var iconRow = $("<div>");
         var iconImg = $("<img>");
@@ -116,6 +116,7 @@ function getWeather(cityName) {
         iconRow.append(iconImg, iconInfo);
 
         day.append(date, iconRow, temp, humidity, wind);
+
         $("#five-day").append(day);
       }
 
@@ -135,8 +136,8 @@ function getWeather(cityName) {
     })
     .then(function (todayWeather) {
       // console.log(todayWeather);
-      var city = $("<h3 class='uppercase'>");
-      var todayDate = $("<h3>");
+      var city = $("<h2 class='uppercase'>");
+      var todayDate = $("<h4>");
       var todayIconRow = $("<div>");
       var todayIconImg = $("<img>");
       var todayIconInfo = $("<p class='uppercase'>");
@@ -159,7 +160,6 @@ function getWeather(cityName) {
       todayWind.text(
         "Wind Speed: " + todayWeather.current.wind_speed + " knots"
       );
-
       todayUV.text("UV Index: ");
       var UVIndex = todayWeather.current.uvi;
       var bgColor = $("<span>");
