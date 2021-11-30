@@ -79,31 +79,33 @@ function getWeather(cityName) {
       var midDayForecasts = fiveDayForecast.list.filter(function (inputs) {
         return inputs.dt_txt.includes("12:00");
       });
+      // console.log(midDayForecasts);
       $("#five-day").empty();
       for (x = 0; x < midDayForecasts.length; x++) {
         var day = $("<div class='col-2'>");
         var date = $("<h5>");
-        var icon = $("<img>");
+        var iconRow = $("<div>");
+        var iconImg = $("<img>");
+        var iconInfo = $("<p class='uppercase'>");
         var temp = $("<p>");
         var humidity = $("<p>");
         var wind = $("<p>");
 
         date.text(midDayForecasts[x].dt_txt.split(" ")[0]);
-        icon.attr(
+        iconImg.attr(
           "src",
           "https://openweathermap.org/img/wn/" +
             midDayForecasts[x].weather[0].icon +
             "@2x.png"
         );
+        iconInfo.text(midDayForecasts[x].weather[0].description);
         temp.text("Temperature: " + midDayForecasts[x].main.temp + "°F");
         humidity.text("Humidity: " + midDayForecasts[x].main.humidity + "%");
         wind.text("Wind Speed: " + midDayForecasts[x].wind.speed + " knots");
 
-        day.append(date);
-        day.append(icon);
-        day.append(temp);
-        day.append(humidity);
-        day.append(wind);
+        iconRow.append(iconImg, iconInfo);
+
+        day.append(date, iconRow, temp, humidity, wind);
         $("#five-day").append(day);
       }
 
@@ -122,10 +124,12 @@ function getWeather(cityName) {
       return todayResponse.json();
     })
     .then(function (todayWeather) {
-      //   console.log(todayWeather);
-      var city = $("<h3>");
+      console.log(todayWeather);
+      var city = $("<h3 class='uppercase'>");
       var todayDate = $("<h3>");
-      var todayIcon = $("<img>");
+      var todayIconRow = $("<div>");
+      var todayIconImg = $("<img>");
+      var todayIconInfo = $("<p class='uppercase'>");
       var todayTemp = $("<p>");
       var todayHumidity = $("<p>");
       var todayWind = $("<p>");
@@ -133,12 +137,13 @@ function getWeather(cityName) {
 
       city.text(cityName);
       todayDate.text(today.format("MMMM Do, YYYY"));
-      todayIcon.attr(
+      todayIconImg.attr(
         "src",
         "https://openweathermap.org/img/wn/" +
           todayWeather.current.weather[0].icon +
           "@2x.png"
       );
+      todayIconInfo.text(todayWeather.current.weather[0].description);
       todayTemp.text("Temperature: " + todayWeather.current.temp + "°F");
       todayHumidity.text("Humidity: " + todayWeather.current.humidity + "%");
       todayWind.text(
@@ -148,12 +153,16 @@ function getWeather(cityName) {
 
       $("#today").empty();
 
-      $("#today").append(city);
-      $("#today").append(todayDate);
-      $("#today").append(todayIcon);
-      $("#today").append(todayTemp);
-      $("#today").append(todayHumidity);
-      $("#today").append(todayWind);
-      $("#today").append(todayUV);
+      todayIconRow.append(todayIconImg, todayIconInfo);
+
+      $("#today").append(
+        city,
+        todayDate,
+        todayIconRow,
+        todayTemp,
+        todayHumidity,
+        todayWind,
+        todayUV
+      );
     });
 }
