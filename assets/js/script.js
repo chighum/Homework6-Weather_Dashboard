@@ -3,6 +3,7 @@ var APIKey = config.APIKey;
 var storedCities = JSON.parse(localStorage.getItem("cities")) || [];
 var cityForm = $("#city-form");
 var cityList = $("#city-list");
+var clearCities = $("#clear-cities-btn");
 var today = moment();
 
 // when the user submits a city it shows the current weather and five day forecast
@@ -34,6 +35,13 @@ function renderCities() {
   }
 }
 
+clearCities.on("click", function (event) {
+  event.preventDefault();
+  localStorage.clear();
+  storedCities = JSON.parse(localStorage.getItem("cities")) || [];
+  renderCities();
+});
+
 // delete individual items from the list of cities
 function deleteItem(event) {
   event.preventDefault();
@@ -49,6 +57,7 @@ function deleteItem(event) {
 
 cityList.on("click", deleteItem);
 
+// allow user to click on a saved city and see the forecast again
 function redoCity(event) {
   event.preventDefault();
   var btnClicked = event.target;
@@ -76,6 +85,7 @@ function getWeather(cityName) {
       return fiveDayResponse.json();
     })
     .then(function (fiveDayForecast) {
+      console.log(fiveDayForecast);
       var midDayForecasts = fiveDayForecast.list.filter(function (inputs) {
         return inputs.dt_txt.includes("12:00");
       });
@@ -124,7 +134,7 @@ function getWeather(cityName) {
       return todayResponse.json();
     })
     .then(function (todayWeather) {
-      console.log(todayWeather);
+      // console.log(todayWeather);
       var city = $("<h3 class='uppercase'>");
       var todayDate = $("<h3>");
       var todayIconRow = $("<div>");
@@ -149,7 +159,25 @@ function getWeather(cityName) {
       todayWind.text(
         "Wind Speed: " + todayWeather.current.wind_speed + " knots"
       );
-      todayUV.text("UV Index: " + todayWeather.current.uvi);
+
+      todayUV.text("UV Index: ");
+      var UVIndex = todayWeather.current.uvi;
+      var bgColor = $("<span>");
+      bgColor.html(UVIndex);
+      // if/else statement to apply background color to the UV Index depending on the #
+      if (UVIndex < 3) {
+        bgColor.css("background-color", "green");
+      } else if (UVIndex < 6) {
+        bgColor.css("background-color", "yellow");
+      } else if (UVIndex < 8) {
+        bgColor.css("background-color", "orange");
+      } else if (UVIndex < 11) {
+        bgColor.css("background-color", "red");
+      } else {
+        bgColor.css("background-color", "purple");
+      }
+
+      todayUV.append(bgColor);
 
       $("#today").empty();
 
