@@ -94,7 +94,9 @@ function getWeather(cityName) {
       $("#five-day").empty();
       console.log(fiveDayForecast.list.length);
       for (x = 7; x < fiveDayForecast.list.length; x += 8) {
-        var day = $("<div class='col card mx-3 my-3'>");
+        var day = $(
+          "<div class='col-6 col-sm-4 col-md-4 col-lg-3 col-xl-3 col-xxl card mx-3 my-3'>"
+        );
         var date = $("<h5>");
         var iconRow = $("<div>");
         var iconImg = $("<img>");
