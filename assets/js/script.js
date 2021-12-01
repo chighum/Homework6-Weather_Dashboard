@@ -24,11 +24,12 @@ cityForm.on("submit", saveCity);
 function renderCities() {
   cityList.text("");
   for (var i = 0; i < storedCities.length; i++) {
-    var cityListEntry = $("<li>");
-    var cityListItem = $("<button class='uppercase redo-city-btn'>");
+    var cityListEntry = $("<li class='my-2'>");
+    var cityListItem = $("<button class='uppercase redo-city-btn mx-1'>");
     cityListItem.text(storedCities[i]);
     cityListEntry.attr("data-index", i);
     var deleteItemButton = $("<button class='delete-item-btn'>x</button>");
+    deleteItemButton.css("background-color", "red");
     cityListEntry.append(cityListItem);
     cityListEntry.append(deleteItemButton);
     cityList.append(cityListEntry);
@@ -86,12 +87,13 @@ function getWeather(cityName) {
     })
     .then(function (fiveDayForecast) {
       console.log(fiveDayForecast);
-      var midDayForecasts = fiveDayForecast.list.filter(function (inputs) {
-        return inputs.dt_txt.includes("12:00");
-      });
+      // var midDayForecasts = fiveDayForecast.list.filter(function (inputs) {
+      //   return inputs.dt_txt.includes("18:00:00");
+      // });
       // console.log(midDayForecasts);
       $("#five-day").empty();
-      for (x = 0; x < midDayForecasts.length; x++) {
+      console.log(fiveDayForecast.list.length);
+      for (x = 7; x < fiveDayForecast.list.length; x += 8) {
         var day = $("<div class='col card mx-3 my-3'>");
         var date = $("<h5>");
         var iconRow = $("<div>");
@@ -101,17 +103,19 @@ function getWeather(cityName) {
         var humidity = $("<p>");
         var wind = $("<p>");
 
-        date.text(midDayForecasts[x].dt_txt.split(" ")[0]);
+        date.text(fiveDayForecast.list[x].dt_txt.split(" ")[0]);
         iconImg.attr(
           "src",
           "https://openweathermap.org/img/wn/" +
-            midDayForecasts[x].weather[0].icon +
+            fiveDayForecast.list[x].weather[0].icon +
             "@2x.png"
         );
-        iconInfo.text(midDayForecasts[x].weather[0].description);
-        temp.text("Temperature: " + midDayForecasts[x].main.temp + "°F");
-        humidity.text("Humidity: " + midDayForecasts[x].main.humidity + "%");
-        wind.text("Wind Speed: " + midDayForecasts[x].wind.speed + " knots");
+        iconInfo.text(fiveDayForecast.list[x].weather[0].description);
+        temp.text("Temp: " + fiveDayForecast.list[x].main.temp + "°F");
+        humidity.text(
+          "Humidity: " + fiveDayForecast.list[x].main.humidity + "%"
+        );
+        wind.text("Wind: " + fiveDayForecast.list[x].wind.speed + " knots");
 
         iconRow.append(iconImg, iconInfo);
 
@@ -135,7 +139,7 @@ function getWeather(cityName) {
       return todayResponse.json();
     })
     .then(function (todayWeather) {
-      // console.log(todayWeather);
+      console.log(todayWeather);
       var city = $("<h2 class='uppercase'>");
       var todayDate = $("<h4>");
       var todayIconRow = $("<div>");
