@@ -18,7 +18,7 @@ function saveCity(event) {
   renderCities();
 }
 
-cityForm.on("click", saveCity);
+$("#city-button").on("click", saveCity);
 
 // functionality to show each local storage entry to the screen
 function renderCities() {
