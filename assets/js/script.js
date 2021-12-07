@@ -1,5 +1,5 @@
 // link to secret API key
-var APIKey = "13efd7ac45710748643887fcd8e4ec8b";
+var APIKey = config.APIKey;
 var storedCities = JSON.parse(localStorage.getItem("cities")) || [];
 var cityForm = $("#city-form");
 var cityList = $("#city-list");
